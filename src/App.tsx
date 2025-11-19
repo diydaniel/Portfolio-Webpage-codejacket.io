@@ -1,6 +1,7 @@
 import type { JSX } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { useTheme } from './hooks/useTheme';
 
 const GITHUB_USER = "diydaniel";
 
@@ -27,6 +28,7 @@ export default function App(): JSX.Element {
   const [activeTopic, setActiveTopic] = useState<string>("All");
   const [languages, setLanguages] = useState<string[]>(["All"]);
   const [language, setLanguage] = useState<string>("All");
+  
 
   useEffect(() => {
     let cancelled = false;
@@ -117,10 +119,37 @@ export default function App(): JSX.Element {
 
 function Header(): JSX.Element {
   const [open, setOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-950/60 border-b border-gray-200 dark:border-gray-800">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#home" className="font-bold text-lg">{`{codejacket.io}`}</a>
+        <a href="#home" className="font-bold text-lg">
+          {'{codejacket.io}'}
+        </a>
+
+        {/* Light / Dark toggle button */}
+        <button
+          onClick={toggleTheme}
+          className="flex items-center gap-2 rounded-full border border-slate-400 dark:border-slate-600 px-3 py-1 text-sm"
+        >
+          {theme === 'light' ? (
+            <>
+              <span role="img" aria-label="moon">
+                🌙
+              </span>
+              <span>Dark</span>
+            </>
+          ) : (
+            <>
+              <span role="img" aria-label="sun">
+                ☀️
+              </span>
+              <span>Light</span>
+            </>
+          )}
+        </button>
+
         <nav className="hidden md:flex gap-6 items-center">
           <a href="#projects">Projects</a>
           <a href="#skills">Skills</a>
