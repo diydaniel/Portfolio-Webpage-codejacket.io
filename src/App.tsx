@@ -2,6 +2,9 @@ import type { JSX } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from './hooks/useTheme';
+import DiabetesModelSection from "./components/DiabetesModelSection";
+import HousingModelSection from "./components/HousingModelSection";
+
 
 const GITHUB_USER = "diydaniel";
 
@@ -29,7 +32,6 @@ export default function App(): JSX.Element {
   const [languages, setLanguages] = useState<string[]>(["All"]);
   const [language, setLanguage] = useState<string>("All");
   
-
   useEffect(() => {
     let cancelled = false;
     async function load() {
@@ -95,6 +97,7 @@ export default function App(): JSX.Element {
       <Header />
       <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <Hero />
+        <Motto />
         <Skills />
         <Projects
           repos={filtered}
@@ -119,43 +122,28 @@ export default function App(): JSX.Element {
 
 function Header(): JSX.Element {
   const [open, setOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
+
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-950/60 border-b border-gray-200 dark:border-gray-800">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#home" className="font-bold text-lg">
+
+        {/* Site Title */}
           {'{codejacket.io}'}
+
         </a>
 
-        {/* Light / Dark toggle button */}
-        <button
-          onClick={toggleTheme}
-          className="flex items-center gap-2 rounded-full border border-slate-400 dark:border-slate-600 px-3 py-1 text-sm"
-        >
-          {theme === 'light' ? (
-            <>
-              <span role="img" aria-label="moon">
-                🌙
-              </span>
-              <span>Dark</span>
-            </>
-          ) : (
-            <>
-              <span role="img" aria-label="sun">
-                ☀️
-              </span>
-              <span>Light</span>
-            </>
-          )}
-        </button>
-
         <nav className="hidden md:flex gap-6 items-center">
+          
+          <a href="#skills">Skills & Services</a>
           <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
+
+          {/* Light - Dark toggle button */}
           <ThemeToggle />
+
         </nav>
         <button className="md:hidden p-2 rounded-lg border border-gray-300 dark:border-gray-700" onClick={() => setOpen(v => !v)}>
           ☰
@@ -164,7 +152,7 @@ function Header(): JSX.Element {
       {open && (
         <div className="md:hidden px-4 pb-4 flex flex-col gap-3">
           <a onClick={() => setOpen(false)} href="#projects">Projects</a>
-          <a onClick={() => setOpen(false)} href="#skills">Skills</a>
+          <a onClick={() => setOpen(false)} href="#skills">Skills & Services</a>
           <a onClick={() => setOpen(false)} href="#about">About</a>
           <a onClick={() => setOpen(false)} href="#contact">Contact</a>
           <ThemeToggle />
@@ -175,43 +163,58 @@ function Header(): JSX.Element {
 }
 
 function ThemeToggle(): JSX.Element {
-  const [dark, setDark] = useState(false);
-  useEffect(() => {
-    const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const stored = localStorage.getItem("theme");
-    const isDark = stored ? stored === "dark" : prefers;
-    setDark(isDark);
-    document.documentElement.classList.toggle("dark", isDark);
-  }, []);
-  function toggle() {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  }
+  const { theme, toggleTheme } = useTheme();
+  const isDark = theme === "dark";
+
   return (
-    <button onClick={toggle} className="px-3 py-2 rounded-xl border border-gray-300 dark:border-gray-700 text-sm">
-      {dark ? "☾ Dark" : "☀ Light"}
+    <button
+      onClick={toggleTheme}
+      className="px-3 py-2 rounded-xl border border-gray-300 dark:border-gray-700 text-sm flex items-center gap-2"
+    >
+      {isDark ? (
+        <>
+          <span aria-hidden="true">☾</span>
+          <span>Dark</span>
+        </>
+      ) : (
+        <>
+          <span aria-hidden="true">☀</span>
+          <span>Light</span>
+        </>
+      )}
     </button>
   );
 }
 
+
 function Hero(): JSX.Element {
   return (
     <section id="home" className="py-16 sm:py-24">
-      <h1 className="text-4xl font-bold">Python‑first Developer</h1>
+      <h1 className="text-4xl font-bold">{'Welcome to codejacket.io'}</h1>
       <p className="mt-4 text-gray-700 dark:text-gray-300">
-        Building FastAPI backends, React frontends, and data-driven apps.
+        The place you can visit to take care of the "Tech Stuff" so you can focus on what matters most – your business.
       </p>
     </section>
+    
   );
 }
 
-function Skills(): JSX.Element {
-  const skills = ["Python", "FastAPI", "React", "PostgreSQL", "Tailwind CSS"];
+function Motto(): JSX.Element {
   return (
-    <section id="skills" className="py-12">
-      <h2 className="text-2xl font-bold">Skills</h2>
+    <section id="Motto" className="py-12">
+      <h2 className="text-2xl font-bold">Simplicity is the Ultimate Sophistication</h2>
+      <p className="mt-4 text-gray-700 dark:text-gray-300">
+        
+      </p>
+    </section>
+  )
+}
+
+function Skills(): JSX.Element {
+  const skills = ["Full-Stack Web Applications", "Python", "Machine Learning", "Data Anayltics/Data Science", "RESTful APIs", "Database Solutions", "Agile Methodologies", "Version Control (Git)"];
+  return (
+    <section id="Skills" className="py-12">
+      <h2 className="text-2xl font-bold">Skills & Services</h2>
       <div className="mt-4 flex flex-wrap gap-3">
         {skills.map((s) => (
           <span key={s} className="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 text-sm">
@@ -251,14 +254,14 @@ function Projects({
   return (
     <section id="projects" className="py-12">
       <h2 className="text-2xl font-bold">Projects</h2>
-      <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {(repos.length ? repos : HARDCODED_PROJECTS).map((r: Repo) => (
-          <ProjectCard key={r.id || r.name} repo={r} />
-        ))}
-      </div>
+      <HousingModelSection />
+      <DiabetesModelSection />
+      
     </section>
   );
 }
+
+
 
 const HARDCODED_PROJECTS: Repo[] = [
   {
@@ -274,10 +277,25 @@ const HARDCODED_PROJECTS: Repo[] = [
     forks: 0,
     updated_at: new Date().toISOString(),
   },
+  {
+    id: "fallback-2",
+    name: "ml-predictive-pipeline-housing",
+    full_name: "diydaniel/ml-predictive-pipeline-housing",
+    description: "Machine learning pipeline for housing price prediction using scikit-learn and FastAPI.",
+    language: "Python",
+    topics: ["Machine Learning", "Data Cleaning", "Pandas"],
+    html_url: "https://github.com/diydaniel/ml-predictive-pipeline-housing",
+    homepage: "",
+    stars: 0,
+    forks: 0,
+    updated_at: new Date().toISOString(),
+  }
+  
 ];
 
 function ProjectCard({ repo }: { repo: Repo }): JSX.Element {
   return (
+
     <motion.article className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-gray-900/60 p-5 shadow-sm">
       <a href={repo.html_url} target="_blank" rel="noreferrer" className="font-semibold text-lg hover:underline">
         {repo.name}
