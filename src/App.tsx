@@ -320,7 +320,7 @@ function Contact(): JSX.Element {
   return (
     <section id="contact" className="py-16">
       <h2 className="text-2xl font-bold">Contact</h2>
-      <p className="mt-4 text-gray-700 dark:text-gray-300">Reach me at you@example.com</p>
+      <p className="mt-4 text-gray-700 dark:text-gray-300">Reach me at info@codejacket.io</p>
     </section>
   );
 }
@@ -328,7 +328,7 @@ function Contact(): JSX.Element {
 function Footer(): JSX.Element {
   return (
     <footer className="py-10 text-sm text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 mt-16">
-      <p>© {new Date().getFullYear()} Your Name</p>
+      <p>© {new Date().getFullYear()} codejacket.io</p>
     </footer>
   );
 }
