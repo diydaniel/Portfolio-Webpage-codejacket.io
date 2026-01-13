@@ -1,0 +1,15 @@
+# ----------------------------
+# CodeJacket: caching rules
+# ----------------------------
+
+# 1) Do NOT cache HTML (so homepage updates show up)
+<FilesMatch "\.(html)$">
+  Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+  Header set Pragma "no-cache"
+  Header set Expires "0"
+</FilesMatch>
+
+# 2) Cache Vite hashed assets for a long time (safe + fast)
+<FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|webp|ico|woff|woff2)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
