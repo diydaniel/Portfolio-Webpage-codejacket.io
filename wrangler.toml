@@ -1,0 +1,25 @@
+name = "codejacket-api"
+main = "cloudflare/worker.js"
+compatibility_date = "2026-01-01"
+
+# ⚙️ Environment variables
+# Public or non-secret values that the Worker can still read
+[vars]
+APP_ORIGIN = "https://codejacket.io"
+API_ORIGIN = "https://api.codejacket.io"
+EMAIL_FROM = "CodeJacket.io <email@mail.codejacket.io>"
+
+# 🧠 Secret values (not visible in source)
+# You’ll set these with the `wrangler secret` command (below)
+[env.production]
+RESEND_API_KEY = ""
+SESSION_JWT_SECRET = ""
+STRIPE_SECRET_KEY = ""
+STRIPE_WEBHOOK_SECRET = ""
+
+# 🧰 KV namespace binding for login tokens
+[[kv_namespaces]]
+binding = "LOGIN_TOKENS"
+id = "1eff4026ea244cb1bd275b33368e040c"
+
+# 📌 Additional bindings (Stripe keys, D1, R2) will go below once added

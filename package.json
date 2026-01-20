@@ -1,15 +1,18 @@
 {
-  "name": "my-portfolio",
+  "name": "codejacket-site",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "dev:worker": "wrangler dev cloudflare/worker.js",
+    "deploy:worker": "wrangler deploy",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "crypto": "^1.0.1",
     "framer-motion": "^12.23.24",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
@@ -30,6 +33,7 @@
     "tailwindcss": "^3.4.18",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
-    "vite": "^7.2.2"
+    "vite": "^7.2.2",
+    "wrangler": "^4.59.2"
   }
 }
