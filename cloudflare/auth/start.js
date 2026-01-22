@@ -31,6 +31,7 @@ return new Response(JSON.stringify({ sent }), {
     headers: { "Content-Type": "application/json" },
     status: sent ? 200 : 500,
   });
+  console.log("authStart running for email:", email);
 }
 
 // What this does:
