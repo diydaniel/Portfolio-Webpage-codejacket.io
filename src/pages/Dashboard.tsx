@@ -1,55 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getCurrentUser, logoutUser } from "../utils/api";
+import { useEffect, useState } from "react";
+import { getCurrentUser } from "../utils/api";
 
 export default function Dashboard() {
-  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [user, setUser] = useState<{ email: string } | null>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
+    async function loadUser() {
       try {
-        const user = await getCurrentUser();
-        if (!user) {
-          // No user logged in → redirect to login
-          navigate("/");
-        } else {
-          setUserEmail(user.email);
+        const res = await getCurrentUser();
+        if (res?.user) {
+          setUser(res.user);
         }
       } catch (err) {
-        console.error("Error fetching user:", err);
-        navigate("/");
+        console.error("Dashboard auth error:", err);
       } finally {
         setLoading(false);
       }
-    })();
-  }, [navigate]);
-
-  const handleLogout = async () => {
-    try {
-      await logoutUser();
-    } catch (err) {
-      console.error("Logout failed:", err);
     }
-    navigate("/");
-  };
+
+    loadUser();
+  }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Loading session…</p>;
+  }
+
+  if (!user) {
+    return <p>No active session.</p>;
   }
 
   return (
-    <div style={{ textAlign: "center", marginTop: "2rem" }}>
+    <div>
       <h1>Dashboard</h1>
-      {userEmail ? (
-        <>
-          <p>Welcome, {userEmail}</p>
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <p>No active session.</p>
-      )}
+      <p>Welcome, {user.email}</p>
     </div>
   );
 }
