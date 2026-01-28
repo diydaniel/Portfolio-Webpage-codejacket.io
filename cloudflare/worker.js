@@ -43,21 +43,21 @@ export default {
         });
       }
 
-      if (url.pathname === "/auth/verify" && request.method === "GET") {
+  if (url.pathname === "/auth/verify" && request.method === "GET") {
   const response = await authVerify(request, env);
 
-  // Extract Set‑Cookie from the verify response
   const setCookie = response.headers.get("Set-Cookie");
 
   return new Response(response.body, {
     status: response.status,
     headers: {
       ...corsHeaders,
-      "Content-Type": response.headers.get("Content-Type") || "",
+      "Content-Type": response.headers.get("Content-Type") || "application/json",
       ...(setCookie ? { "Set-Cookie": setCookie } : {}),
     },
   });
 }
+
 
       if (url.pathname === "/me" && request.method === "GET") {
         const response = await getCurrentUser(request, env);

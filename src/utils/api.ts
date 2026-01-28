@@ -1,48 +1,85 @@
 // src/utils/api.ts
+import { API_BASE } from "../config";
 
-export const API_BASE = import.meta.env.VITE_API_BASE as string; 
+type ApiResult<T = unknown> = {
+  ok: boolean;
+  data?: T;
+  error?: string;
+};
 
-export async function sendMagicLink(email: string) {
-  try {
-    const response = await fetch(
-      "https://codejacket-api.codejacket.workers.dev/auth/start",
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }), // use the argument!
-      }
-    );
-
-    const data = await response.json();
-    console.log("sendMagicLink response:", data);
-
-    return data;
-  } catch (err) {
-    console.error("sendMagicLink error:", err);
-    throw err; // propagate error for UI to handle
-  }
-}
-
-
-export async function verifyToken(token: string): Promise<Response> {
-  return fetch(`${API_BASE}/auth/verify?token=${encodeURIComponent(token)}`, {
-    credentials: "include", // needed for cookies
+// --- Magic link / signup ---
+export async function sendMagicLink(
+  email: string
+): Promise<{ sent: boolean; error?: string }> {
+  const res = await fetch(`${API_BASE}/auth/start`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
   });
+
+  const data = await res.json().catch(() => ({} as any));
+  console.log("sendMagicLink response:", data);
+
+  if (!res.ok) {
+    return { sent: false, error: data?.error || "Request failed" };
+  }
+
+  return { sent: true };
 }
 
-export async function getCurrentUser(): Promise<{ email: string } | null> {
-  const res = await fetch(`${API_BASE}/me`, { credentials: "include" });
-  if (!res.ok) return null;
-  const json = await res.json();
-  return json.user ?? null;
+// --- /me: get current user (what your components expect) ---
+export async function getCurrentUser(): Promise<{
+  user: { email: string } | null;
+}> {
+  const res = await fetch(`${API_BASE}/me`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await res.json().catch(() => ({} as any));
+  console.log("getCurrentUser response:", data);
+
+  // Your Worker returns { user: null } or { user: { email } }
+  return { user: data.user ?? null };
 }
 
-export async function logoutUser(): Promise<void> {
-  await fetch(`${API_BASE}/auth/logout`, {
+// Optional: more detailed version if you need it anywhere else
+export async function fetchCurrentUser(): Promise<
+  ApiResult<{ email: string } | null>
+> {
+  const { user } = await getCurrentUser();
+  return { ok: true, data: user };
+}
+
+// --- Protected data example ---
+export async function fetchProtected(): Promise<ApiResult> {
+  const res = await fetch(`${API_BASE}/api/protected`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await res.json().catch(() => ({} as any));
+
+  if (!res.ok) {
+    return { ok: false, error: data?.error || "Failed to load protected data" };
+  }
+
+  return { ok: true, data };
+}
+
+// --- Logout ---
+export async function logoutUser(): Promise<ApiResult> {
+  const res = await fetch(`${API_BASE}/auth/logout`, {
     method: "POST",
     credentials: "include",
   });
+
+  const data = await res.json().catch(() => ({} as any));
+
+  if (!res.ok) {
+    return { ok: false, error: data?.error || "Logout failed" };
+  }
+
+  return { ok: true, data };
 }

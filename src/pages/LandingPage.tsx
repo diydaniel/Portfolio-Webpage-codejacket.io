@@ -1,36 +1,54 @@
-import React, { useState } from "react";
-import { sendMagicLink } from "../utils/api";
+import React from "react";
+import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import FeatureList from "../components/FeatureList";
+import HeroSection from "../components/HeroSection";
 
 export default function LandingPage() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("");
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = await sendMagicLink(email);
-    setStatus(result.sent ? "Check your email!" : "Send failed");
-  };
-
   return (
-    <form onSubmit={handleSubmit} style={{ textAlign: "center", marginTop: "2rem" }}>
-      <input
-        type="email"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        style={{
-          padding: "0.5rem",
-          fontSize: "1rem",
-          width: "300px",
-          marginBottom: "1rem",
-        }}
-      />
-      <br />
-      <button type="submit" style={{ padding: "0.6rem 1.2rem", fontSize: "1rem" }}>
-        Send Login Link
-      </button>
-      {status && <p style={{ marginTop: "1rem" }}>{status}</p>}
-    </form>
+    <>
+
+
+      <div style={styles.container}>
+      
+        
+        <HeroSection />
+        <FeatureList />
+
+      </div>
+
+    
+    </>
   );
 }
+
+const styles: Record<string, React.CSSProperties> = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "80vh",
+    textAlign: "center",
+    padding: "1rem",
+  },
+  header: {
+    fontSize: "3rem",
+    marginBottom: "0.5rem",
+  },
+  subheader: {
+    fontSize: "1.25rem",
+    marginBottom: "1.5rem",
+    color: "#555",
+  },
+  button: {
+    padding: "0.75rem 1.5rem",
+    fontSize: "1.1rem",
+    fontWeight: "bold",
+    color: "#fff",
+    backgroundColor: "#0070f3",
+    borderRadius: "0.375rem",
+    textDecoration: "none",
+  },
+};

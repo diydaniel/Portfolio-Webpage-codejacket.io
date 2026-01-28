@@ -2,14 +2,19 @@ name = "codejacket-api"
 main = "cloudflare/worker.js"
 compatibility_date = "2026-01-01"
 
+# Production defaults
 [vars]
 APP_ORIGIN = "https://codejacket.io"
-API_ORIGIN = "https://codejacket-api.codejacket.workers.dev"
 EMAIL_FROM = "CodeJacket <no-reply@mail.codejacket.io>"
 
-# Now we *do not* list secrets here
-# Secrets are stored with wrangler secret put
-
 [[kv_namespaces]]
+binding = "LOGIN_TOKENS"
+id = "1eff4026ea244cb1bd275b33368e040c"
+
+# ✅ DEV OVERRIDES (THIS IS THE MISSING PART)
+[env.dev]
+vars = { APP_ORIGIN = "http://localhost:5173", EMAIL_FROM = "CodeJacket <no-reply@mail.codejacket.io>"}
+
+[[env.dev.kv_namespaces]]
 binding = "LOGIN_TOKENS"
 id = "1eff4026ea244cb1bd275b33368e040c"
