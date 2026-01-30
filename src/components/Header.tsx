@@ -1,8 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../utils/api";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+  try {
+    await logoutUser();
+    setOpen(false);
+    navigate("/");
+  } catch (err) {
+    console.error("Logout failed:", err);
+  }
+}
 
   return (
     <header style={styles.header}>
@@ -37,9 +52,15 @@ export default function Header() {
             onMouseLeave={(e) =>
           Object.assign(e.currentTarget.style, styles.menuLink)
       }
+            onFocus={(e) =>
+          Object.assign(e.currentTarget.style, styles.menuLinkHover)
+      }
+            onBlur={(e) =>
+          Object.assign(e.currentTarget.style, styles.menuLink)
+      }
             onClick={() => setOpen(false)}
-    >
-            Dashboard
+      >
+        Dashboard
           </Link>
 
           <Link 
@@ -51,8 +72,15 @@ export default function Header() {
             onMouseLeave={(e) =>
           Object.assign(e.currentTarget.style, styles.menuLink)
       }
-            onClick={() => setOpen(false)}>
-            Create Account
+            onFocus={(e) =>
+          Object.assign(e.currentTarget.style, styles.menuLinkHover)
+      }
+            onBlur={(e) =>
+          Object.assign(e.currentTarget.style, styles.menuLink)
+      }
+            onClick={() => setOpen(false)}
+      >
+        Create Account
           </Link>
           <a
             href="https://github.com/diydaniel"
@@ -65,10 +93,47 @@ export default function Header() {
             onMouseLeave={(e) =>
           Object.assign(e.currentTarget.style, styles.menuLink)
       }
+            onFocus={(e) =>
+          Object.assign(e.currentTarget.style, styles.menuLinkHover)
+      }
+            onBlur={(e) =>
+          Object.assign(e.currentTarget.style, styles.menuLink)
+      }
             onClick={() => setOpen(false)}
-          >
-            GitHub
+      >
+        GitHub
           </a>
+          <Link
+  to="/"
+  style={styles.menuLink}
+  onClick={async (e) => {
+    e.preventDefault(); // stop immediate navigation
+
+    try {
+      await handleLogout(); // clears cookie/session
+      navigate("/", { state: { loggedOut: true } });
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      setOpen(false);
+    }
+  }}
+  onMouseEnter={(e) =>
+    Object.assign(e.currentTarget.style, styles.menuLinkHover)
+  }
+  onMouseLeave={(e) =>
+    Object.assign(e.currentTarget.style, styles.menuLink)
+  }
+  onFocus={(e) =>
+    Object.assign(e.currentTarget.style, styles.menuLinkHover)
+  }
+  onBlur={(e) =>
+    Object.assign(e.currentTarget.style, styles.menuLink)
+  }
+>
+  Log out
+</Link>
+
         </div>
     </header>
   );
@@ -118,7 +183,7 @@ const styles: Record<string, React.CSSProperties> = {
   padding: "0.5rem 0",
   zIndex: 100,
 
-  /* animation base */
+  /* Fade + slide */
   transition: "opacity 180ms ease, transform 180ms ease",
   transformOrigin: "top right",
 },
@@ -131,21 +196,31 @@ menuOpen: {
 
 menuClosed: {
   opacity: 0,
-  transform: "translateY(-8px)",
+  transform: "translateY(-6px)",
   pointerEvents: "none",
 },
 
-
   menuLink: {
-    padding: "0.75rem 1.25rem",
-    color: "#EAEAEA",
-    textDecoration: "none",
-    fontSize: "0.95rem",
-  },
+  padding: "0.75rem 1.25rem",
+  color: "#EAEAEA",
+  textDecoration: "none",
+  fontSize: "0.95rem",
 
-  menuLinkHover: {
+  display: "flex",
+  alignItems: "center",
+  gap: "0.5rem",
+
+  borderLeft: "2px solid transparent",
+
+  transition:
+    "background-color 120ms ease, color 120ms ease, transform 120ms ease, border-color 120ms ease",
+},
+
+menuLinkHover: {
   backgroundColor: "#242424",
   color: "#FFD700",
+  borderLeft: "2px solid #FFD700",
+  transform: "translateX(2px)",
 },
 
 };

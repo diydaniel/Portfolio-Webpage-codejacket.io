@@ -10,12 +10,7 @@ const features = [
   {
     icon: "🔒",
     title: "LPIC - Essentials",
-    description: "Build a solid foundation for a Career in Information Technology.",
-  },
-  {
-    icon: "⚙️",
-    title: "LPIC - 1",
-    description: "This is sound System Administration skills for Linux Professionals.",
+    description: "Recommend to start here for a solid foundation in Linux.",
   },
 ];
 
@@ -38,12 +33,14 @@ export default function FeatureList() {
 
 const styles: Record<string, React.CSSProperties> = {
   section: {
-    backgroundColor: "#161616",
-    border: "1px solid #2A2A2A",
-    borderRadius: "12px",
-    padding: "2rem",
-    display: "flex",
-    flexDirection: "column",
-    gap: "1.75rem",
-  },
+  backgroundColor: "#1E1E1E",
+  border: "1px solid #2F2F2F",
+  borderRadius: "14px",
+  padding: "2rem",
+  maxWidth: "960px",
+  width: "100%",
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+  gap: "1.75rem",
+},
 };
