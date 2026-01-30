@@ -57,23 +57,30 @@ export default function Verify() {
 
   if (status === "loading") {
     return (
-      <div style={{ padding: "2rem", textAlign: "center" }}>
+      <main>
+        <div style={{ padding: "2rem", textAlign: "center" }}>
         Verifying your link…
       </div>
+      </main>
+      
     );
   }
 
   if (status === "success") {
     return (
-      <div style={{ padding: "2rem", textAlign: "center" }}>
+      <main>
+        <div style={{ padding: "2rem", textAlign: "center" }}>
         Verified! Redirecting to your dashboard…
       </div>
+      </main>
+      
     );
   }
 
   // error
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
+    <main>
+      <div style={{ padding: "2rem", textAlign: "center" }}>
       <p>Verification failed. Request a new link.</p>
       {debug && (
         <pre
@@ -89,5 +96,7 @@ export default function Verify() {
         </pre>
       )}
     </div>
+    </main>
+    
   );
 }

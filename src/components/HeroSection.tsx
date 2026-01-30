@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 export default function HeroSection() {
   return (
     <section style={styles.hero}>
-      <h1 style={styles.title}>Welcome to <span style={styles.accent}>codejacket.io</span>!</h1>
-      <p style={styles.subtitle}>
-        Begin a new journey of code and production.
-      </p>
-      <Link to="/signup" style={styles.cta}>
+      <h1 style={styles.title}>codejacket.io</h1>
+      <Link to="/signup" style={styles.primaryButton}>
         Create Your Account
       </Link>
     </section>
@@ -17,31 +14,28 @@ export default function HeroSection() {
 
 const styles: Record<string, React.CSSProperties> = {
   hero: {
+    backgroundColor: "#161616",
+    border: "1px solid #2A2A2A",
+    borderRadius: "14px",
+    padding: "2.25rem 2.5rem",
+    maxWidth: "960px",
+    width: "100%",
     textAlign: "center",
-    padding: "3rem 1rem",
-    backgroundColor: "#111",
-    color: "#E0E0E0",
   },
+
   title: {
-    fontSize: "3rem",
-    marginBottom: "0.5rem",
+    fontSize: "2.3rem",
+    fontWeight: 500,
+    color: "#EAEAEA",
+    marginBottom: "0.75rem",
   },
-  accent: {
-    color: "#FFD700",
-  },
-  subtitle: {
-    fontSize: "1.25rem",
-    marginBottom: "1.5rem",
-    color: "#C0C0C0",
-  },
-  cta: {
-    display: "inline-block",
-    padding: "0.75rem 1.5rem",
-    fontSize: "1.1rem",
-    fontWeight: "bold",
-    color: "#111",
+
+  primaryButton: {
     backgroundColor: "#FFD700",
-    borderRadius: "0.375rem",
+    color: "#0B0B0B",
+    padding: "0.6rem 1.25rem",
+    borderRadius: "8px",
+    fontWeight: 600,
     textDecoration: "none",
   },
 };

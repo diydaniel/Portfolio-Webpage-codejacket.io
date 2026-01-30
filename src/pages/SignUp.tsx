@@ -24,19 +24,23 @@ export default function SignUp() {
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.header}>Create Your Account</h2>
-      <p>Enter your email to receive a magic login link.</p>
+  <main style={styles.page}>
+    <div style={styles.surface}>
+      <h2 style={styles.formTitle}>Create Your Account</h2>
+      <p style={styles.subtitle}>
+        Enter your email to receive a secure login link.
+      </p>
 
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="email"
-          placeholder="Your email address"
+          placeholder="you@domain.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
           style={styles.input}
         />
+
         <button type="submit" style={styles.button}>
           Send Login Link
         </button>
@@ -44,47 +48,76 @@ export default function SignUp() {
 
       {status && <p style={styles.status}>{status}</p>}
     </div>
-  );
+  </main>
+);
 }
 
 const styles: Record<string, React.CSSProperties> = {
-  container: {
+  page: {
+    fontFamily: "Menlo",
+    backgroundColor: "#0B0B0B",
+    color: "#EAEAEA",
+    minHeight: "100vh",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
-    padding: "2rem",
+    paddingTop: "6rem",
+    paddingBottom: "4rem",
+  },
+
+  surface: {
+    backgroundColor: "#161616",
+    border: "1px solid #2A2A2A",
+    borderRadius: "12px",
+    padding: "2.5rem 2rem",
+    width: "100%",
+    maxWidth: "420px",
     textAlign: "center",
   },
-  header: {
-    fontSize: "2rem",
+
+  formTitle: {
+    fontSize: "1.75rem",
     marginBottom: "0.5rem",
+    color: "#FFD700",
   },
+
+  subtitle: {
+    fontSize: "0.95rem",
+    color: "#9CA3AF",
+    marginBottom: "1.5rem",
+  },
+
   form: {
-    marginTop: "1rem",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    gap: "1rem",
   },
+
   input: {
+    backgroundColor: "#0B0B0B",
+    color: "#EAEAEA",
+    border: "1px solid #2A2A2A",
+    borderRadius: "8px",
     padding: "0.75rem",
-    fontSize: "1rem",
-    width: "300px",
-    marginBottom: "1rem",
-    borderRadius: "0.375rem",
-    border: "1px solid #ccc",
+    fontSize: "0.95rem",
+    outline: "none",
   },
+
   button: {
-    padding: "0.75rem 1.5rem",
-    fontSize: "1rem",
-    backgroundColor: "#0070f3",
-    color: "#fff",
+    marginTop: "0.5rem",
+    backgroundColor: "#FFD700",
+    color: "#111",
     border: "none",
-    borderRadius: "0.375rem",
+    borderRadius: "8px",
+    padding: "0.75rem",
+    fontWeight: 600,
+    fontSize: "0.95rem",
     cursor: "pointer",
   },
+
   status: {
     marginTop: "1rem",
-    fontStyle: "italic",
+    fontSize: "0.85rem",
+    color: "#9CA3AF",
   },
 };

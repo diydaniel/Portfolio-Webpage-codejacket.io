@@ -1,35 +1,49 @@
 import React from "react";
 import FeatureItem from "./FeatureItem";
 
+const features = [
+  {
+    icon: "⚡️",
+    title: "Learn Linux and Earn Top Rated Certifications",
+    description: "Linux Professional Institute - LPIC",
+  },
+  {
+    icon: "🔒",
+    title: "LPIC - Essentials",
+    description: "Build a solid foundation for a Career in Information Technology.",
+  },
+  {
+    icon: "⚙️",
+    title: "LPIC - 1",
+    description: "This is sound System Administration skills for Linux Professionals.",
+  },
+];
+
 export default function FeatureList() {
   return (
     <section style={styles.section}>
-      <FeatureItem
-        icon={"⚡️"}
-        title="Fast Authentication"
-        description="Instant magic link login — no password required."
-      />
-      <FeatureItem
-        icon={"🔒"}
-        title="Secure Sessions"
-        description="Encrypted and secure session cookies."
-      />
-      <FeatureItem
-        icon={"⚙️"}
-        title="API Powered"
-        description="Built on Cloudflare Workers & Resend."
-      />
+      {features.map((feature, index) => (
+        <div
+          key={feature.title}
+          style={{
+            animationDelay: `${index * 90}ms`, // 👈 STAGGER HERE
+          }}
+        >
+          <FeatureItem {...feature} />
+        </div>
+      ))}
     </section>
   );
 }
 
 const styles: Record<string, React.CSSProperties> = {
   section: {
+    backgroundColor: "#161616",
+    border: "1px solid #2A2A2A",
+    borderRadius: "12px",
+    padding: "2rem",
     display: "flex",
-    gap: "2rem",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    margin: "2rem 1rem",
-    backgroundColor: "#111",
+    flexDirection: "column",
+    gap: "1.75rem",
   },
 };
