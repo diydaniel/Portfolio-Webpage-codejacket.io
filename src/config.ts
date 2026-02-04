@@ -1,0 +1,5 @@
+// src/config.ts
+export const API_BASE =
+  import.meta.env.VITE_API_BASE || "http://localhost:8787";
+
+console.log("API_BASE (from config.ts):", API_BASE);

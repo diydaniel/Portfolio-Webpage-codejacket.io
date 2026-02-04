@@ -2,77 +2,147 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* ================================
+   🌑 CodeJacket Global Theme
+   ================================ */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* 🔹 Let the app fill the window */
 html,
 body,
 #root {
-  height: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background-color: #0B0B0B;
+  color: #EAEAEA;
+  font-family: Menlo, monospace;
 }
+
+/* Prevent mobile bounce + white flash */
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+/* ================================
+   🔗 Links
+   ================================ */
 
 a {
+  color: #FFD700;
+  text-decoration: none;
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
 }
+
 a:hover {
-  color: #535bf2;
+  opacity: 0.85;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
+/* ================================
+   🧱 Headings
+   ================================ */
+
+h1, h2, h3, h4, h5 {
+  color: #EAEAEA;
+  font-weight: 600;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+p {
+  color: #B5B5B5;
+  line-height: 1.6;
 }
+
+/* ================================
+   🔘 Buttons (Neutral by default)
+   ================================ */
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
+  background-color: #141414;
+  color: #EAEAEA;
+  border: 1px solid #2A2A2A;
+  border-radius: 10px;
   padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 1rem;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.2s ease;
 }
+
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  border-color: #FFD700;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+button:focus {
+  outline: none;
+  border-color: #FFD700;
+}
+
+/* ================================
+   📦 Panel Utility (Reusable)
+   ================================ */
+
+.panel {
+  background-color: #141414;
+  border: 1px solid #2A2A2A;
+  border-radius: 14px;
+  padding: 2rem;
+}
+
+/* ================================
+   🧹 Kill Browser Defaults
+   ================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
+/* ===== Feature Card ===== */
 
+.feature-card {
+  background-color: #222222;
+  border: 1px solid #333333;
+  border-radius: 12px;
+  padding: 1.5rem;
+  color: #eaeaea;
+
+  /* motion */
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  border-color: #444;
+}
+
+/* Accessibility: keyboard focus */
+.feature-card:focus-within {
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  border-color: #ffd700;
+}
+
+/* Optional icon polish */
+.feature-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+/* ===== Load animation ===== */
+
+@keyframes featureFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
