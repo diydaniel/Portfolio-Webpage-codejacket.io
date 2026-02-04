@@ -5,11 +5,12 @@ import PageLayout from "./layouts/PageLayout";
 console.log("API_BASE in App:", API_BASE);
  
 import LandingPage from "./pages/LandingPage";
-import SignUp from "./pages/SignUp";
-import Verify from "./pages/Verify";
-import Dashboard from "./pages/Dashboard";
+// import SignUp from "./pages/SignUp";
+// import Verify from "./pages/Verify";
+// import Dashboard from "./pages/Dashboard";
 import WhyLinux from "./pages/WhyLinux";
 import WhatIsLinux from "./pages/WhatIsLinux";
+import ComingSoon from "./pages/ComingSoon";
 
 
 export default function App() {
@@ -26,31 +27,32 @@ export default function App() {
         />
 
         <Route
-          path="/signup"
-          element={
-            <PageLayout center>
-              <SignUp />
-            </PageLayout>
-          }
-        />
+  path="/signup"
+  element={
+    <PageLayout center>
+      <ComingSoon />
+    </PageLayout>
+  }
+/>
 
-        <Route
-          path="/verify"
-          element={
-            <PageLayout center>
-              <Verify />
-            </PageLayout>
-          }
-        />
+<Route
+  path="/verify"
+  element={
+    <PageLayout center>
+      <ComingSoon />
+    </PageLayout>
+  }
+/>
 
-        <Route
-          path="/dashboard"
-          element={
-            <PageLayout>
-              <Dashboard />
-            </PageLayout>
-          }
-        />
+<Route
+  path="/dashboard"
+  element={
+    <PageLayout center>
+      <ComingSoon />
+    </PageLayout>
+  }
+/>
+
        
           <Route 
             path="/resources"

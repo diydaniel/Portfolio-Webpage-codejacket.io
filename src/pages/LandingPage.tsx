@@ -16,7 +16,8 @@ export default function LandingPage() {
       )}
 
       <HeroSection />
-      <FeatureList />
+      <FeatureList isLoggedIn={false} />
+     { /* <FeatureList isLoggedIn={!!user} /> */}
     </main>
   );
 }

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export default function HeroSection() {
   return (
     <section style={styles.hero}>
-      <h1 style={styles.title}>Failure is the pathway to success.</h1>
-     
+    {/*.  <h1 style={styles.title}>Failure is the pathway to success.</h1> */ } 
+     <h1 style={styles.title}>codejacket.io</h1>
     </section>
   );
 }

@@ -95,9 +95,12 @@ export default function Header() {
   onClick={() => setOpen(false)}
 >
   What is Linux?
-</Link>
-          <Link
-  to="/"
+</Link> 
+
+{/* ... logout link removed ...
+
+<Link
+    to="/"
   style={styles.menuLink}
   onClick={async (e) => {
     e.preventDefault(); // stop immediate navigation
@@ -126,6 +129,7 @@ export default function Header() {
 >
   Log out
 </Link>
+*/}
 
         </div>
     </header>
