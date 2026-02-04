@@ -4,13 +4,13 @@ import FeatureItem from "./FeatureItem";
 const features = [
   {
     icon: "⚡️",
-    title: "Learn Linux and Earn Top Rated Certifications",
-    description: "Linux Professional Institute - LPIC",
+    title: "Guide to the Information Technology Profession",
+    description: "The Many Paths professionals take to enter IT.",
   },
   {
     icon: "🔒",
-    title: "LPIC - Essentials",
-    description: "Recommend to start here for a solid foundation in Linux.",
+    title: "Our best Starting point: Linux Fundamentals",
+    description: "Starting is easier than you think.",
   },
 ];
 

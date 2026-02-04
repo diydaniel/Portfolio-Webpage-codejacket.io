@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { logoutUser } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 
-
 export default function Header() {
   const [open, setOpen] = useState(false);
 
@@ -20,6 +19,9 @@ export default function Header() {
 }
 
   return (
+
+// begin header content
+
     <header style={styles.header}>
       <nav style={styles.nav}>
         <Link to="/" style={styles.logo}>
@@ -82,27 +84,18 @@ export default function Header() {
       >
         Create Account
           </Link>
-          <a
-            href="https://github.com/diydaniel"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={styles.menuLink}
-            onMouseEnter={(e) =>
-          Object.assign(e.currentTarget.style, styles.menuLinkHover)
-      }
-            onMouseLeave={(e) =>
-          Object.assign(e.currentTarget.style, styles.menuLink)
-      }
-            onFocus={(e) =>
-          Object.assign(e.currentTarget.style, styles.menuLinkHover)
-      }
-            onBlur={(e) =>
-          Object.assign(e.currentTarget.style, styles.menuLink)
-      }
-            onClick={() => setOpen(false)}
-      >
-        GitHub
-          </a>
+          
+          <Link
+  to="/resources"
+  style={styles.menuLink}
+  onMouseEnter={(e) => Object.assign(e.currentTarget.style, styles.menuLinkHover)}
+  onMouseLeave={(e) => Object.assign(e.currentTarget.style, styles.menuLink)}
+  onFocus={(e) => Object.assign(e.currentTarget.style, styles.menuLinkHover)}
+  onBlur={(e) => Object.assign(e.currentTarget.style, styles.menuLink)}
+  onClick={() => setOpen(false)}
+>
+  What is Linux?
+</Link>
           <Link
   to="/"
   style={styles.menuLink}
